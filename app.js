@@ -2,6 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
@@ -16,6 +22,7 @@ app.get('/', async (req,res) => {
 
 
 app.post('/new',  async (req,res) => {
+    console.log('ee');
     let body = req.body;
     console.log(body);
     const user = await User.create(body);
@@ -41,6 +48,6 @@ app.delete('/delete/:id', (req,res) => {
 });
 
 
-app.listen(3000, () => {
-    console.log(`Listening to the 3000 port...`);
+app.listen(4000, () => {
+    console.log(`Listening to the 4000 port...`);
 });
